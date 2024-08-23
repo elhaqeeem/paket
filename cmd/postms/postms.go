@@ -10,7 +10,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	"github.com/joho/godotenv"
 	"github.com/willdady/postms/internal/postms/handlers"
 	"github.com/willdady/postms/internal/postms/models"
 	"github.com/willdady/postms/internal/postms/postgres"
@@ -21,9 +20,9 @@ var dbConnectionString string
 
 func init() {
 	// Load environment variables from .env file
-	if err := godotenv.Load(); err != nil {
-		log.Fatalf("error loading .env file: %v", err)
-	}
+	//if err := godotenv.Load(); err != nil {
+	//	log.Fatalf("error loading .env file: %v", err)
+	//}
 
 	// Retrieve environment variables
 	pgHost := os.Getenv("PG_HOST")
