@@ -1,4 +1,4 @@
-module github.com/willdady/postms
+module github.com/elhaqeeem/paket
 
 go 1.21
 

@@ -3,9 +3,9 @@ package models
 import (
 	"time"
 
+	"github.com/elhaqeeem/paket/internal/utils"
 	"github.com/gosimple/slug"
 	"github.com/lib/pq"
-	"github.com/willdady/postms/internal/utils"
 )
 
 type CommonFields struct {

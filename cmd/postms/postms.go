@@ -7,13 +7,13 @@ import (
 	"os"
 	"time"
 
+	"github.com/elhaqeeem/paket/internal/postms/handlers"
+	"github.com/elhaqeeem/paket/internal/postms/models"
+	"github.com/elhaqeeem/paket/internal/postms/postgres"
+	"github.com/elhaqeeem/paket/internal/rest"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	"github.com/willdady/postms/internal/postms/handlers"
-	"github.com/willdady/postms/internal/postms/models"
-	"github.com/willdady/postms/internal/postms/postgres"
-	"github.com/willdady/postms/internal/rest"
 )
 
 var dbConnectionString string

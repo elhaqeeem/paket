@@ -3,10 +3,10 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/elhaqeeem/paket/internal/errors"
+	"github.com/elhaqeeem/paket/internal/postms/models"
+	"github.com/elhaqeeem/paket/internal/postms/services"
 	"github.com/gin-gonic/gin"
-	"github.com/willdady/postms/internal/errors"
-	"github.com/willdady/postms/internal/postms/models"
-	"github.com/willdady/postms/internal/postms/services"
 )
 
 func handleServiceError(err error, c *gin.Context) {

@@ -1,7 +1,7 @@
 package services
 
 import (
-	"github.com/willdady/postms/internal/postms/models"
+	"github.com/elhaqeeem/paket/internal/postms/models"
 )
 
 type PostService interface {

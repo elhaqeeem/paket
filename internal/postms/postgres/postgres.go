@@ -3,11 +3,11 @@ package postgres
 import (
 	"encoding/base64"
 
+	"github.com/elhaqeeem/paket/internal/errors"
+	"github.com/elhaqeeem/paket/internal/postms/models"
+	"github.com/elhaqeeem/paket/internal/utils"
 	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
-	"github.com/willdady/postms/internal/errors"
-	"github.com/willdady/postms/internal/postms/models"
-	"github.com/willdady/postms/internal/utils"
 )
 
 type PostService struct {
