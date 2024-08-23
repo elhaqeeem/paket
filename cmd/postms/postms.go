@@ -4,25 +4,41 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"github.com/joho/godotenv"
 	"github.com/willdady/postms/internal/postms/handlers"
 	"github.com/willdady/postms/internal/postms/models"
 	"github.com/willdady/postms/internal/postms/postgres"
 	"github.com/willdady/postms/internal/rest"
-	"github.com/willdady/postms/internal/utils"
 )
 
-var pgHost string = utils.Getenv("PG_HOST", "pg-1ce41962-manglayangselalu-9e1c.h.aivencloud.com")
-var pgPort string = utils.Getenv("PG_PORT", "28210")
-var pgUser string = utils.Getenv("PG_USER", "avnadmin")
-var pgDB string = utils.Getenv("PG_DB", "defaultdb")
-var pgPassword string = utils.Getenv("PG_PASSWORD", "AVNS_mQGjRcVKNfou3YQYNoC")
-var pgSSLMode string = utils.Getenv("PG_SSL_MODE", "require")
-var dbConnectionString = fmt.Sprintf("host=%v port=%v user=%v dbname=%v password=%v sslmode=%v", pgHost, pgPort, pgUser, pgDB, pgPassword, pgSSLMode)
+var dbConnectionString string
+
+func init() {
+	// Load environment variables from .env file
+	if err := godotenv.Load(); err != nil {
+		log.Fatalf("error loading .env file: %v", err)
+	}
+
+	// Retrieve environment variables
+	pgHost := os.Getenv("PG_HOST")
+	pgPort := os.Getenv("PG_PORT")
+	pgUser := os.Getenv("PG_USER")
+	pgDB := os.Getenv("PG_DB")
+	pgPassword := os.Getenv("PG_PASSWORD")
+	pgSSLMode := os.Getenv("PG_SSL_MODE")
+
+	// Create the database connection string
+	dbConnectionString = fmt.Sprintf(
+		"host=%s port=%s user=%s dbname=%s password=%s sslmode=%s",
+		pgHost, pgPort, pgUser, pgDB, pgPassword, pgSSLMode,
+	)
+}
 
 func connectToDB(retry int) (db *gorm.DB, err error) {
 	if retry == 5 {
@@ -30,6 +46,7 @@ func connectToDB(retry int) (db *gorm.DB, err error) {
 		return nil, err
 	}
 	db, dbErr := gorm.Open("postgres", dbConnectionString)
+	gin.SetMode(gin.ReleaseMode)
 	if dbErr != nil {
 		duration := time.Second + time.Second*time.Duration(retry)
 		log.Println(dbErr)
@@ -92,7 +109,6 @@ func main() {
 	})
 
 	rest.AttachEndpoints(resources, r)
-	gin.SetMode(gin.ReleaseMode)
 
 	r.Run() // listen and serve on 0.0.0.0:8080
 }
