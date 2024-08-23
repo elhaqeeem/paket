@@ -19,7 +19,7 @@ import (
 var dbConnectionString string
 
 func init() {
-	// Load environment variables from .env file
+	//Load environment variables from .env file
 	//if err := godotenv.Load(); err != nil {
 	//	log.Fatalf("error loading .env file: %v", err)
 	//}
